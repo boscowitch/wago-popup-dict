@@ -28,7 +28,7 @@ wago_popup_dict_VALAFLAGS =  \
 	--pkg gtk+-3.0
 
 wago_popup_dict_LDFLAGS = \
-	-Wl,--export-dynamic,-ldl,-lpthread
+	-Wl,--export-dynamic,-lpthread,-ldl
 
 wago_popup_dict_LDADD = $(WAGO_POPUP_DICT_LIBS)
 
