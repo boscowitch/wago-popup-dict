@@ -5,6 +5,7 @@ public class SettingsHandler : GLib.Object {
 	
 	private bool settings_saved;
 	private KeyFile settings_file;
+	
 	private string settings_file_path;
 
 	public string dictionaries_path;
@@ -13,6 +14,7 @@ public class SettingsHandler : GLib.Object {
 	private string current_dictionary_path;
 	private string current_dictionary_name;
 	private SqliteDictionary current_sqlitedict; 
+
 	
 	private int hide_timeout;
 	private bool hide_on_mouse_move;
@@ -22,6 +24,14 @@ public class SettingsHandler : GLib.Object {
 
 		//GLib.Environment.get_user_data_dir();
 		//GLib.Environment.get_user_config_dir();
+		settings_file_path = Path.build_filename (Path.DIR_SEPARATOR_S, GLib.Environment.get_user_config_dir() ,"wago_popup_dict", "wago.conf");
+
+		DirUtils.create_with_parents ( Path.build_filename (Path.DIR_SEPARATOR_S, GLib.Environment.get_user_config_dir() ,"wago_popup_dict",Path.DIR_SEPARATOR_S),0766);
+		
+		
+		settings_file = new KeyFile();
+		settings_file.set_list_separator (';');
+		
 		
 		//dictionaries_path  = Path.build_path(Path.DIR_SEPARATOR_S, user_data_dir, "wago-popup-dict","dicts");
 		dictionaries_path  = Path.build_filename(main_data_dir, "dicts");
@@ -29,9 +39,8 @@ public class SettingsHandler : GLib.Object {
 		//Default important directories 
 		dictionaries_path =  Path.build_filename(main_data_dir,"dicts");
 		ui_dir = Path.build_filename(main_data_dir, "ui");
-		
-		settings_file_path = Path.build_filename(main_data_dir,"wago.conf");
 
+		hide_timeout=0;
 		load_default_settings();
 		
 		//stdout.printf ("\n %s \n", current_dictionary_path);
@@ -56,7 +65,7 @@ public class SettingsHandler : GLib.Object {
 				current_dictionary_name = dict.get_name();
 				current_dictionary_path = Path.build_filename(dictionaries_path, dict.get_name () );
 				current_sqlitedict.open( current_dictionary_path );
-				//stdout.printf ("\n\n %s \n", current_dictionary_path);
+				settings_saved = false;
 				return true;
 			}
 		}
@@ -77,23 +86,22 @@ public class SettingsHandler : GLib.Object {
 	
 	public bool load_default_settings() {
 		if(load_file(settings_file_path)) {
-			
-			settings_saved=true;
-			return true;
+			if( File.new_for_path (current_dictionary_path).query_exists () ) {
+				settings_saved=true;
+				return true;
+			}
 		}
-		else{
-			//set defaults
+		
+		if(hide_timeout == 0) {
 			hide_timeout=5500;
-			hide_on_mouse_move = true;
-
-			List<FileInfo> dicts = list_dictionarys();
-			current_dictionary_name = ((FileInfo) dicts.nth_data(0)).get_name();
-			current_dictionary_path = Path.build_filename(dictionaries_path, ((FileInfo) dicts.nth_data(0)).get_name() );
-			//dictionaries_path + Path.DIR_SEPARATOR_S + ((FileInfo) dicts.first()).get_name();
-			
-			settings_saved = false;
-			return false;
+			hide_on_mouse_move = true;			
 		}
+		List<FileInfo> dicts = list_dictionarys();
+		current_dictionary_name = ((FileInfo) dicts.nth_data(0)).get_name();
+		current_dictionary_path = Path.build_filename(dictionaries_path, ((FileInfo) dicts.nth_data(0)).get_name() );
+		//dictionaries_path + Path.DIR_SEPARATOR_S + ((FileInfo) dicts.first()).get_name();
+		settings_saved = false;
+		return false;
 	}
 	
 	public bool load_file(string path) {
@@ -102,13 +110,15 @@ public class SettingsHandler : GLib.Object {
 		
 		try {
 			settings_file.load_from_file(settings_file_path, KeyFileFlags.KEEP_COMMENTS);
+			current_dictionary_path = settings_file.get_string ("wago-popup","Dictionary");
+			File tmpdict = File.new_for_path (current_dictionary_path);
+			current_dictionary_name = tmpdict.query_info ("*", FileQueryInfoFlags.NONE).get_name ();
+			hide_on_mouse_move = settings_file.get_boolean ("wago-popup","hide-on-mouse-hover");
+			hide_timeout = settings_file.get_integer ("wago-popup","hide-timeout");
 			settings_saved = true;
 			return true;
 		}
-		catch (KeyFileError err) {
-			settings_saved = false;
-		}	
-		catch (FileError err) {
+		catch (Error err) {
 			settings_saved = false;
 		}
 		 
@@ -119,13 +129,18 @@ public class SettingsHandler : GLib.Object {
 		if( settings_file != null)
 		{
 			try {
-				if(!settings_saved)
+				if(!settings_saved) {
+					settings_file.set_string ("wago-popup","Dictionary",current_dictionary_path);
+					settings_file.set_boolean ("wago-popup","hide-on-mouse-hover",hide_on_mouse_move);
+					settings_file.set_integer ("wago-popup","hide-timeout",hide_timeout);
 					FileUtils.set_contents(settings_file_path, settings_file.to_data(null));
+				}
 				return true;
 			}
 			/*catch (KeyFileError err) { handeled in FileError!
 			}*/
-			catch (FileError err) {
+			catch (FileError e) {
+				stdout.printf("Error: %s\n", e.message);
 			}
 		}
 		return false;

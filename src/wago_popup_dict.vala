@@ -44,14 +44,15 @@ public class Main : Object
 		} 
 */
 	}
-
+/*
 	[CCode (instance_pos = -1)]
 	public void on_destroy (Widget window) 
 	{
-		handler.save_settings ();
+		
+		
 		Gtk.main_quit();
 	}
-
+*/
 	static int main (string[] args) 
 	{
 		Gtk.init (ref args);
@@ -62,6 +63,7 @@ public class Main : Object
 	    app.popup = new WagoPopup(handler);	
 
 		Gtk.main ();
+		handler.save_settings ();
 		
 		return 0;
 	}
