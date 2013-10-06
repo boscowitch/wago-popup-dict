@@ -57,6 +57,19 @@ public class SettingsHandler : GLib.Object {
 		return current_sqlitedict;
 	}
 
+	public bool set_hide_timeout(int timeout) {
+		hide_timeout = timeout;
+		settings_saved = false;
+		return true;
+	}
+
+	public bool set_hide_on_mouse_move(bool hide) {
+		hide_on_mouse_move = hide;
+		settings_saved = false;
+		return true;
+	}
+	
+
 	public bool set_current_dict(string dictname) {
 		List<FileInfo> dicts = list_dictionarys();
 		
