@@ -35,12 +35,17 @@ public class WagoPopup : Gtk.Window {
 		move(Gdk.Screen.width() - 310, Gdk.Screen.height() - 250);
 		/*Gdk.Color color;
 		Gdk.Color.parse("black", out color);*/
+
+		border_width = 2;
+		//TODO move to Settings ect.
+		opacity = handler.get_notify_transparency();
+		//set_opacity (opacity);
+
 		Gdk.RGBA color = RGBA();
 		color.parse("black");
 		override_background_color( Gtk.StateFlags.NORMAL,color);
 		
-		border_width = 2;
-		opacity = 0.75f;
+		
 		set_default_size(300,-1);
 		destroy.connect (Gtk.main_quit);
 		label = new Label("");
@@ -63,7 +68,7 @@ public class WagoPopup : Gtk.Window {
 		this.enter_notify_event.connect(EnterWindow);
 	    	
 	    last_clipboard_text = "";
-	    	
+
 	    
 		//TODO when check for OS linux only!
 	    clip_handler = Clipboard.get(Gdk.SELECTION_PRIMARY); 
@@ -97,6 +102,7 @@ public class WagoPopup : Gtk.Window {
     	  	
     	public void popup_text(string title, string text) {
     		string tmp = text;
+			opacity = handler.get_notify_transparency();
     		tmp = tmp.replace("&","&amp");
     		tmp = tmp.replace("<","&#60;");
 			tmp = tmp.replace(">","&#62;");

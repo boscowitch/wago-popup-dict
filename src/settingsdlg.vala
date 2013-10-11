@@ -6,6 +6,7 @@ public class SettingsDlg : GLib.Object {
 	private ComboBoxText dictcombo;
 	//private ComboBoxText positioncombo;
 	private SpinButton hidespin;
+	private SpinButton transparencyspin;
 	private CheckButton hide_move_checkbox;
 	private SettingsHandler handler;
 	
@@ -27,6 +28,7 @@ public class SettingsDlg : GLib.Object {
 		dictcombo = builder.get_object("dictcombo") as ComboBoxText;
 		//positioncombo = builder.get_object("positioncombo") as ComboBoxText;
 		hidespin = builder.get_object("hidetimespinbutton") as SpinButton;
+		transparencyspin = builder.get_object("transparencyspin") as SpinButton;
 		hide_move_checkbox = builder.get_object("hidecheckbutton") as CheckButton;
 		//main_dlg.set_modal(true);
 		
@@ -37,6 +39,10 @@ public class SettingsDlg : GLib.Object {
 		hidespin.set_range (100,100000000);
 		hidespin.set_increments (100,1);
 		hidespin.set_value ((double) handler.get_hide_timeout ());
+
+		transparencyspin.set_range (0,1);
+		transparencyspin.set_increments (0.05,1);
+		transparencyspin.set_value ( handler.get_notify_transparency ());
 		
 
 		List<FileInfo> dicts = handler.list_dictionarys();
@@ -64,6 +70,7 @@ public class SettingsDlg : GLib.Object {
 		handler.set_current_dict(dictcombo.get_active_text());
 		handler.set_hide_on_mouse_move (hide_move_checkbox.get_active ());
 		handler.set_hide_timeout ((int) hidespin.get_value ());
+		handler.set_notify_transparency (transparencyspin.get_value ());
 		main_dlg.hide ();
 	}
 	

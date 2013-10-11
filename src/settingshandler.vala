@@ -18,6 +18,7 @@ public class SettingsHandler : GLib.Object {
 	
 	private int hide_timeout;
 	private bool hide_on_mouse_move;
+	private double notify_transparency;
 	
 	public SettingsHandler(string main_data_dir) {
 		settings_saved = false;
@@ -41,6 +42,7 @@ public class SettingsHandler : GLib.Object {
 		ui_dir = Path.build_filename(main_data_dir, "ui");
 
 		hide_timeout=0;
+		notify_transparency = -1;
 		load_default_settings();
 		
 		//stdout.printf ("\n %s \n", current_dictionary_path);
@@ -66,6 +68,15 @@ public class SettingsHandler : GLib.Object {
 	public bool set_hide_on_mouse_move(bool hide) {
 		hide_on_mouse_move = hide;
 		settings_saved = false;
+		return true;
+	}
+
+	public double get_notify_transparency() {
+		return notify_transparency;
+	}
+
+	public bool set_notify_transparency(double transparency) {
+		notify_transparency = transparency;
 		return true;
 	}
 	
@@ -105,9 +116,10 @@ public class SettingsHandler : GLib.Object {
 			}
 		}
 		
-		if(hide_timeout == 0) {
+		if(hide_timeout == 0 || notify_transparency == -1) {
 			hide_timeout=5500;
-			hide_on_mouse_move = true;			
+			hide_on_mouse_move = true;
+			notify_transparency = 0.75;
 		}
 		List<FileInfo> dicts = list_dictionarys();
 		current_dictionary_name = ((FileInfo) dicts.nth_data(0)).get_name();
@@ -128,6 +140,7 @@ public class SettingsHandler : GLib.Object {
 			current_dictionary_name = tmpdict.query_info ("*", FileQueryInfoFlags.NONE).get_name ();
 			hide_on_mouse_move = settings_file.get_boolean ("wago-popup","hide-on-mouse-hover");
 			hide_timeout = settings_file.get_integer ("wago-popup","hide-timeout");
+			notify_transparency = settings_file.get_double ("wago-popup","notify_transparency");
 			settings_saved = true;
 			return true;
 		}
@@ -146,6 +159,7 @@ public class SettingsHandler : GLib.Object {
 					settings_file.set_string ("wago-popup","Dictionary",current_dictionary_path);
 					settings_file.set_boolean ("wago-popup","hide-on-mouse-hover",hide_on_mouse_move);
 					settings_file.set_integer ("wago-popup","hide-timeout",hide_timeout);
+					settings_file.set_double ("wago-popup","notify_transparency", notify_transparency);
 					FileUtils.set_contents(settings_file_path, settings_file.to_data(null));
 				}
 				return true;

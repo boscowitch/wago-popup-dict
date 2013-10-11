@@ -62,6 +62,8 @@ public class Main : Object
 	    Wago app = new Wago(handler);
 	    app.popup = new WagoPopup(handler);	
 
+		//stdout.printf ("\n %s \n %s \n", Config.SPRITE_DIR, Config.BACKGROUND_DIR);
+
 		Gtk.main ();
 		handler.save_settings ();
 		

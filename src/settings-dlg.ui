@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.0 on Fri Oct 11 17:12:33 2013 -->
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkDialog" id="dialog1">
@@ -26,8 +27,6 @@
                 <property name="width_request">250</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="entry_text_column">0</property>
-                <property name="id_column">1</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -97,13 +96,42 @@
                 <property name="can_focus">True</property>
                 <property name="max_length">20</property>
                 <property name="invisible_char">●</property>
-                <property name="progress_fraction">0.30000001192092896</property>
+                <property name="progress_pulse_step">0.10000000149011612</property>
                 <property name="climb_rate">100</property>
                 <property name="numeric">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">2</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label4">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Notify window transparency:</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">3</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="transparencyspin">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="climb_rate">0.05000000074505806</property>
+                <property name="digits">2</property>
+                <property name="numeric">True</property>
+                <property name="value">0.40000000596046448</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">3</property>
                 <property name="width">1</property>
                 <property name="height">1</property>
               </packing>
