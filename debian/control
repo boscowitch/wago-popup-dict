@@ -1,0 +1,14 @@
+Source: wago-popup-dict
+Section: education
+Priority: extra
+Maintainer: Mark Müller <markmueller86@gmail.com>
+Build-Depends: debhelper (>= 8.0.0), autotools-dev
+Standards-Version: 3.9.4
+Homepage: http://www.boscowitch.de/
+#Vcs-Git: git://git.debian.org/collab-maint/wago-popup-dict.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/wago-popup-dict.git;a=summary
+
+Package: wago-popup-dict
+Architecture: any
+Depends: libglib2.0-0 (>= 2.24.0), libgtk-3-0 (>= 3.7.10), ${misc:Depends}
+Description: Wago-popup-dict is a opensource Japanese Popup Dictionary for fast automatic words lookup. It is the successor of wadoku-notify a simple Japanese-German popup dictionary. It now also offers a edict Dictionary Database, Global Hotkey support, Tray Icon and extended Setting and search dialogs.
