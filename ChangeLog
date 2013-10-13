@@ -1,2 +1,12 @@
 
+n.n.n / 2013-10-12 
+==================
+
+  * added transparency settings gui + logic
+  * Added some more Settings in GUI
+  * Preserve Settings in conf file
+  * less warnings
+  * test
+  * First commit
+
 
