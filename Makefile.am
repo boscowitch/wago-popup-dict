@@ -24,3 +24,11 @@ uninstall-local:
 dictsdir = $(pkgdatadir)/dicts
 dicts_DATA = dictionaries/edict.sqlite3 \
 	dictionaries/wadoku.sqlite3
+	
+# The desktop files
+desktopdir = $(datadir)/applications
+desktop_DATA =data/wago_popup_dict.desktop
+
+#the application icon
+appicondir=$(datadir)/pixmaps
+appicon_DATA=data/wagodict_icon.svg
