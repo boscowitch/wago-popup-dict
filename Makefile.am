@@ -3,14 +3,10 @@
 
 SUBDIRS = src 
 
-wago_popup_dictdocdir = ${prefix}/doc/wago_popup_dict
+wago_popup_dictdocdir = ${prefix}/share/doc/wago-popup-dict
 wago_popup_dictdoc_DATA = \
 	README\
-	COPYING\
-	AUTHORS\
-	ChangeLog\
-	INSTALL\
-	NEWS
+	ChangeLog
 
 
 EXTRA_DIST = $(wago_popup_dictdoc_DATA)

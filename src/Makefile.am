@@ -19,7 +19,7 @@ AM_CFLAGS =\
 	 -Wall\
 	 -g
 
-bin_PROGRAMS = wago_popup_dict
+bin_PROGRAMS = wago-popup-dict
 
 wago_popup_dict_SOURCES = \
 	wago_popup_dict.vala config.vapi settingsdlg.vala settingshandler.vala sqlitedictionary.vala unix-helpers.vala wago_popup.vala wordstem.vala sqlite3fts.vapi wago.vala
