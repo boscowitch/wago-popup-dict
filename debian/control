@@ -1,14 +1,42 @@
 Source: wago-popup-dict
 Section: education
-Priority: extra
-Maintainer: Mark Müller <markmueller86@gmail.com>
-Build-Depends: debhelper (>= 8.0.0), autotools-dev, valac, libsqlite3-dev, libgtk-3-dev, libcairo2-dev, libgdk-pixbuf2.0-dev
-Standards-Version: 3.9.4
+Maintainer: GetDeb Package Ninjas <package.ninjas@getdeb.net>
+Priority: optional
+Build-Depends: debhelper (>= 9),
+               autotools-dev,
+               dh-autoreconf,
+               pkg-config,
+               valac,
+               libsqlite3-dev,
+               libgtk-3-dev,
+               libcairo2-dev,
+               libgdk-pixbuf2.0-dev,
+               libappindicator3-dev
+Standards-Version: 3.9.5
 Homepage: http://www.boscowitch.de/
-#Vcs-Git: git://git.debian.org/collab-maint/wago-popup-dict.git
-#Vcs-Browser: http://git.debian.org/?p=collab-maint/wago-popup-dict.git;a=summary
 
 Package: wago-popup-dict
 Architecture: any
-Depends: libglib2.0-0 (>= 2.24.0), libgtk-3-0 (>= 3.7.10), libc6 (>=2.14), libcairo2 (>=1.2.4), libgdk-pixbuf2.0-0 (>=2.22.0), libsqlite3-0 (>=3.5.9), ${misc:Depends}
-Description: Wago-popup-dict is a opensource Japanese Popup Dictionary for fast automatic words lookup. It is the successor of wadoku-notify a simple Japanese-German popup dictionary. It now also offers a edict Dictionary Database, Global Hotkey support, Tray Icon and extended Setting and search dialogs.
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+         wago-popup-dict-data (= ${source:Version})
+Description: Japanese Popup Dictionary
+ Wago-popup-dict is a opensource Japanese Popup Dictionary
+ for fast automatic words lookup. It is the successor of
+ wadoku-notify a simple Japanese-German popup dictionary.
+ It now also offers a edict Dictionary Database,
+ Global Hotkey support, Tray Icon and extended Setting
+ and search dialogs.
+
+Package: wago-popup-dict-data
+Architecture: all
+Depends: ${misc:Depends}
+Description: Japanese Popup Dictionary (data package)
+ Wago-popup-dict is a opensource Japanese Popup Dictionary
+ for fast automatic words lookup. It is the successor of
+ wadoku-notify a simple Japanese-German popup dictionary.
+ It now also offers a edict Dictionary Database,
+ Global Hotkey support, Tray Icon and extended Setting
+ and search dialogs.
+ .
+ (This package contains the data files).

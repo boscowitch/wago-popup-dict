@@ -1,2 +1,5 @@
-data/wago.png usr/share/pixmaps/
-data/wago_popup_dict.desktop usr/share/applications/
+debian/hicolor			usr/share/icons
+usr/bin
+usr/share/doc
+usr/share/pixmaps
+usr/share/applications
