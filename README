@@ -8,3 +8,17 @@ It now also offers a edict Dictionary Database, Global Hotkey support, Tray Icon
 extended Setting and search dialogs.
 
 
+
+BUILDING
+========
+
+In Shell
+
+./autogen.sh
+
+make
+
+make install
+
+
+or use the Anjuta Project file to compile it in the Anjuta IDE
