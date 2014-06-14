@@ -22,7 +22,7 @@ AM_CFLAGS =\
 bin_PROGRAMS = wago_popup_dict
 
 wago_popup_dict_SOURCES = \
-	wago_popup_dict.vala config.vapi settingsdlg.vala settingshandler.vala sqlitedictionary.vala unix-helpers.vala wago_popup.vala wordstem.vala sqlite3.c sqlite3.h sqlite3fts.vapi wago.vala
+	wago_popup_dict.vala config.vapi settingsdlg.vala settingshandler.vala sqlitedictionary.vala unix-helpers.vala wago_popup.vala wordstem.vala sqlite3fts.vapi wago.vala
 
 wago_popup_dict_CFLAGS = -lpthread \
 	-ldl 
@@ -31,7 +31,8 @@ wago_popup_dict_VALAFLAGS =  \
 	--pkg gtk+-3.0
 
 wago_popup_dict_LDFLAGS = \
-	-Wl,--export-dynamic,
+	-Wl,--export-dynamic, \
+	-lsqlite3
 
 wago_popup_dict_LDADD = $(WAGO_POPUP_DICT_LIBS)
 
