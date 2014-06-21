@@ -92,6 +92,8 @@ public class WagoPopup : Gtk.Window {
         public void clipboard_changed() {
 	    	clipboard_text = clip_handler.wait_for_text();
 	    	if(clipboard_text != null) {
+			// ignore whitespaces
+			clipboard_text = clipboard_text.strip();
 	    		//TODO char check settings for language!
 	    		if( (clipboard_text.get_char() >=  0x4E00 && clipboard_text.get_char() <= 0x9FAF) ||
 	    		     (clipboard_text.get_char() >=  0x30A0  && clipboard_text.get_char() <= 0x30FF) ||
