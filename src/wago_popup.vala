@@ -11,7 +11,6 @@ public class WagoPopup : Gtk.Window {
 	private SettingsHandler handler;
 	
     private string clipboard_text;
-    private string last_clipboard_text;
         
     private SqliteDictionary dict;
 
@@ -66,9 +65,6 @@ public class WagoPopup : Gtk.Window {
 		//Signal.connect(this, "enter-notify-event", (GLib.Callback) EnterWindow, null);
 		this.button_press_event.connect(EnterWindow);
 		this.enter_notify_event.connect(EnterWindow);
-	    	
-	    last_clipboard_text = "";
-
 	    
 		//TODO when check for OS linux only!
 	    clip_handler = Clipboard.get(Gdk.SELECTION_PRIMARY); 
@@ -78,9 +74,6 @@ public class WagoPopup : Gtk.Window {
 	}
 	
 	public void search_and_popup() {
-		if(clipboard_text == last_clipboard_text)
-			return;
-		last_clipboard_text = clipboard_text;
 		string jap,transl;
 		if(!dict.search_jap_entry(clipboard_text,out jap,out transl))
 			if(!dict.search_japstem_entry(clipboard_text,out jap,out transl))
