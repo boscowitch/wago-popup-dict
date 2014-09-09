@@ -90,7 +90,10 @@ public class WagoPopup : Gtk.Window {
 	    		//TODO char check settings for language!
 	    		if( (clipboard_text.get_char() >=  0x4E00 && clipboard_text.get_char() <= 0x9FAF) ||
 	    		     (clipboard_text.get_char() >=  0x30A0  && clipboard_text.get_char() <= 0x30FF) ||
-	    		     (clipboard_text.get_char() >= 0x3040 && clipboard_text.get_char() <= 0x309F)  )
+	    		     (clipboard_text.get_char() >= 0x3040 && clipboard_text.get_char() <= 0x309F)   ||
+//MORE FOR CHINESE SUPPORT!
+				(clipboard_text.get_char() >= 0x3400 && clipboard_text.get_char() <= 0x4DBF) ||
+				(clipboard_text.get_char() >= 0x20000 && clipboard_text.get_char() <= 0x2A6DF) )
 	    			search_and_popup();
 	    	}
     	}
