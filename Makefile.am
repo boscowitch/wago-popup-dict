@@ -19,7 +19,8 @@ uninstall-local:
 
 dictsdir = $(pkgdatadir)/dicts
 dicts_DATA = dictionaries/edict.sqlite3 \
-	dictionaries/wadoku.sqlite3
+	dictionaries/wadoku.sqlite3 \
+	dictionaries/hande.sqlite3
 	
 # The desktop files
 desktopdir = $(datadir)/applications
